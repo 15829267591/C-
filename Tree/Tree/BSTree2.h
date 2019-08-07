@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-//½ÚµãµÄ½á¹¹
+//èŠ‚ç‚¹çš„ç»“æ„
 template <class T>
 struct BSTreeNodePlus {
 	BSTreeNodePlus<T>* _left;
@@ -21,17 +21,17 @@ public:
 	BSTreePlus()
 		:_root(nullptr)
 	{}
-	//²åÈëÒ»¸ö½Úµã
+	//æ’å…¥ä¸€ä¸ªèŠ‚ç‚¹
 	bool Insert(const T& x)
 	{
-		//ÅĞ¶ÏÊ÷ÊÇ·ñÎª¿Õ
+		//åˆ¤æ–­æ ‘æ˜¯å¦ä¸ºç©º
 		if (_root == nullptr) {
 			_root = new Node(x);
 			return true;
 		}
-		//Ê÷²»Îª¿Õ£¬ÒªÕÒºÏÊÊµÄÎ»ÖÃ²åÈë,´Ó¸ù½Úµã¿ªÊ¼Æ¥Åä
+		//æ ‘ä¸ä¸ºç©ºï¼Œè¦æ‰¾åˆé€‚çš„ä½ç½®æ’å…¥,ä»æ ¹èŠ‚ç‚¹å¼€å§‹åŒ¹é…
 		Node* cur = _root;
-		//Òª¼ÇÂ¼Ã¿Ò»²½×ßµÄÇ°Ò»¸öÎ»ÖÃ
+		//è¦è®°å½•æ¯ä¸€æ­¥èµ°çš„å‰ä¸€ä¸ªä½ç½®
 		Node* parent = nullptr;
 		while (cur) {
 			parent = cur;
@@ -46,7 +46,7 @@ public:
 			}
 		}
 		cur = new Node(x);
-		//²åÈëÔªËØ
+		//æ’å…¥å…ƒç´ 
 		if (parent->_data < x)
 			parent->_right = cur;
 		else
@@ -69,15 +69,15 @@ public:
 		}
 		return false;
 	}
-	//É¾³ıÒ»¸ö½Úµã ·ÖÁ½²½ 
-	//µÚÒ»²½ £ºÕÒµ½Õâ¸ö½ÚµãµÄÎ»ÖÃ
-	//µÚ¶ş²½£ºÉ¾³ı  É¾³ıÓÖ·ÖÎªÈıÖÖÇé¿ö 
+	//åˆ é™¤ä¸€ä¸ªèŠ‚ç‚¹ åˆ†ä¸¤æ­¥ 
+	//ç¬¬ä¸€æ­¥ ï¼šæ‰¾åˆ°è¿™ä¸ªèŠ‚ç‚¹çš„ä½ç½®
+	//ç¬¬äºŒæ­¥ï¼šåˆ é™¤  åˆ é™¤åˆåˆ†ä¸ºä¸‰ç§æƒ…å†µ 
 	bool Erase(const T& x)
 	{
-		//Èç¹ûÎª¿ÕÊ÷£¬Ö±½Ó·µ»Ø
+		//å¦‚æœä¸ºç©ºæ ‘ï¼Œç›´æ¥è¿”å›
 		if (_root == nullptr)
 			return false;
-		//Ê×ÏÈÕÒµ½ÒªÉ¾³ıµÄ½Úµã
+		//é¦–å…ˆæ‰¾åˆ°è¦åˆ é™¤çš„èŠ‚ç‚¹
 		Node* cur = _root;
 		Node* parent = nullptr;
 		while (cur) {
@@ -92,25 +92,38 @@ public:
 				cur = cur->_right;
 			}
 			else {
-				//ÕÒµ½ÁË
-				//Ö´ĞĞµÚ¶ş²½£ºÅĞ¶ÏÊÇÄÇÖÖÇé¿ö
-				//×ó×ÓÊ÷Îª¿ÕµÄÇé¿ö
+				//æ‰¾åˆ°äº†
+				//æ‰§è¡Œç¬¬äºŒæ­¥ï¼šåˆ¤æ–­æ˜¯é‚£ç§æƒ…å†µ
+				//å·¦å­æ ‘ä¸ºç©ºçš„æƒ…å†µ
 				if (cur->_left == nullptr) {
-					if (cur == parent->_right)
-						parent->_right = cur->_right;
-					else
-						parent->_right = cur->_right;
+                                        if(parent == nullptr){
+						_root = cur->_right;
+					}
+					else{
+						if (cur == parent->_right)
+						        parent->_right = cur->_right;
+					        else
+						         parent->_right = cur->_right;
+					}  
+					
 				}
-				//ÓÒ×ÓÊ÷Îª¿ÕµÄÇé¿ö
+				//å³å­æ ‘ä¸ºç©ºçš„æƒ…å†µ
 				else if (cur->_right = nullptr) {
-					if (cur == parent->_left)
-						parent->_left = cur->_left;
-					else
-						parent->_right = cur->_left;
+					if(parent == nullptr){
+						_root = cur->_left;	
+					}
+					else{
+						if (cur == parent->_left)
+							parent->_left = cur->_left;
+					        else
+							parent->_right = cur->_left;
+					}
+					
 				}
-				//×óÓÒ×ÓÊ÷¶¼²»Îª¿Õ
-				//²»ÄÜÖ±½ÓÉ¾³ı£¬ÕÒÒ»¸ö½ÚµãÌæ´úËü£¬×ó×ÓÊ÷×î´ó£¬ÓÒ×ÓÊ÷×îĞ¡
+				//å·¦å³å­æ ‘éƒ½ä¸ä¸ºç©º
+				//ä¸èƒ½ç›´æ¥åˆ é™¤ï¼Œæ‰¾ä¸€ä¸ªèŠ‚ç‚¹æ›¿ä»£å®ƒï¼Œå·¦å­æ ‘æœ€å¤§ï¼Œå³å­æ ‘æœ€å°
 				else {
+					//æ‰¾å³å­æ ‘æœ€å°çš„èŠ‚ç‚¹
 					Node* del = nullptr;
 					Node* reParent = cur;
 					Node* replace = cur->_right;
@@ -118,14 +131,29 @@ public:
 						reParent = replace;
 						replace = replace->_left;
 					}
-					//ÕÒµ½ÓÒ×ÓÊ÷×îĞ¡µÄÔªËØ
-					//½«Õâ¸öÔªËØÖ±½Ó¸³Öµ¸øÒªÉ¾³ıµÄÔªËØ
+					//æ‰¾åˆ°å³å­æ ‘æœ€å°çš„å…ƒç´ 
+					//å°†è¿™ä¸ªå…ƒç´ ç›´æ¥èµ‹å€¼ç»™è¦åˆ é™¤çš„å…ƒç´ 
 					cur->_data = replace->_data;
 					del = replace;
 					if (reParent->_left == replace)
 						reParent->_left = replace->_right;
 					else
 						reParent->_right = replace->_right;
+					
+					//æ‰¾å·¦å­æ ‘æœ€å¤§çš„èŠ‚ç‚¹
+		                        //Node* del = nullptr;
+					//Node* reParent = cur;
+					//Node* replace = cur->_left;
+					//while (replace->_right) {
+					//	reParent = replace;
+					//	replace = replace->_right;
+					//}
+					//cur->_data = replace->_data;
+					//del = replace;
+					//if (replace == reParent->_right)
+					//	reParent->_right = replace->_left;
+					//else
+					//	reParent->_left = replace->_left;
 				}
 				break;
 			}
@@ -133,7 +161,7 @@ public:
 		}
 		return false;
 	}
-	//µİ¹éµ÷ÓÃ£¬Ìá¹©½Ó¿Ú
+	//é€’å½’è°ƒç”¨ï¼Œæä¾›æ¥å£
 	void InOrder()
 	{
 		_InOrder(_root);
