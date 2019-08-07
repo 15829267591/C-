@@ -39,15 +39,15 @@ public:
 	}
 	bool Insert(const T& data)
 	{
-		// Èç¹ûÊ÷Îª¿Õ£¬Ö±½Ó²åÈë
+		// å¦‚æžœæ ‘ä¸ºç©ºï¼Œç›´æŽ¥æ’å…¥
 		if (nullptr == _pRoot)
 		{
 			_pRoot = new Node(data);
 			return true;
 		}
-		// °´ÕÕ¶þ²æËÑË÷Ê÷µÄÐÔÖÊ²éÕÒdataÔÚÊ÷ÖÐµÄ²åÈëÎ»ÖÃ
+		// æŒ‰ç…§äºŒå‰æœç´¢æ ‘çš„æ€§è´¨æŸ¥æ‰¾dataåœ¨æ ‘ä¸­çš„æ’å…¥ä½ç½®
 		PNode pCur = _pRoot;
-		// ¼ÇÂ¼pCurµÄË«Ç×£¬ÒòÎªÐÂÔªËØ×îÖÕ²åÈëÔÚpCurË«Ç××óÓÒº¢×ÓµÄÎ»ÖÃ
+		// è®°å½•pCurçš„åŒäº²ï¼Œå› ä¸ºæ–°å…ƒç´ æœ€ç»ˆæ’å…¥åœ¨pCuråŒäº²å·¦å³å­©å­çš„ä½ç½®
 		PNode pParent = nullptr;
 		while (pCur)
 		{
@@ -55,12 +55,12 @@ public:
 			if (data < pCur->_data)
 				pCur = pCur->_pLeft;
 			else if (data > pCur->_data)
-				pCur = pCur->_pRight; // ÔªËØÒÑ¾­ÔÚÊ÷ÖÐ´æÔÚ
+				pCur = pCur->_pRight; // å…ƒç´ å·²ç»åœ¨æ ‘ä¸­å­˜åœ¨
 			else
 				
 				return false;
 		}
-		// ²åÈëÔªËØ
+		// æ’å…¥å…ƒç´ 
 		pCur = new Node(data);
 		if (data < pParent->_data)
 			pParent->_pLeft = pCur;
@@ -70,10 +70,10 @@ public:
 	}
 	bool Erase(const T& data)
 	{
-		// Èç¹ûÊ÷Îª¿Õ£¬É¾³ýÊ§°Ü
+		// å¦‚æžœæ ‘ä¸ºç©ºï¼Œåˆ é™¤å¤±è´¥
 		if (nullptr == _pRoot)
 			return false;
-		// ²éÕÒÔÚdataÔÚÊ÷ÖÐµÄÎ»ÖÃ
+		// æŸ¥æ‰¾åœ¨dataåœ¨æ ‘ä¸­çš„ä½ç½®
 		PNode pCur = _pRoot;
 		PNode pParent = nullptr;
 		while (pCur)
@@ -91,25 +91,25 @@ public:
 				pCur = pCur->_pRight;
 			}
 		}
-		// data²»ÔÚ¶þ²æËÑË÷Ê÷ÖÐÂð£¬ÎÞ·¨É¾³ý
+		// dataä¸åœ¨äºŒå‰æœç´¢æ ‘ä¸­å—ï¼Œæ— æ³•åˆ é™¤
 		if (nullptr == pCur)
 			return false;
-		// ·ÖÒÔÏÂÇé¿ö½øÐÐÉ¾³ý£¬Í¬Ñ§ÃÇ×Ô¼º»­Í¼·ÖÎöÍê³É
+		// åˆ†ä»¥ä¸‹æƒ…å†µè¿›è¡Œåˆ é™¤
 		if (nullptr == pCur->_pRight)
 		{
-			// µ±Ç°½ÚµãÖ»ÓÐ×óº¢×Ó»òÕß×óº¢×ÓÎª¿Õ---¿ÉÖ±½ÓÉ¾³ý
+			// å½“å‰èŠ‚ç‚¹åªæœ‰å·¦å­©å­æˆ–è€…å·¦å­©å­ä¸ºç©º---å¯ç›´æŽ¥åˆ é™¤
 		}
 		else if (nullptr == pCur->_pRight)
 		{
-			// µ±Ç°½ÚµãÖ»ÓÐÓÒº¢×Ó---¿ÉÖ±½ÓÉ¾³ý
+			// å½“å‰èŠ‚ç‚¹åªæœ‰å³å­©å­---å¯ç›´æŽ¥åˆ é™¤
 		}
 		else
 		{
 		
-				// µ±Ç°½Úµã×óÓÒº¢×Ó¶¼´æÔÚ£¬Ö±½ÓÉ¾³ý²»ºÃÉ¾³ý£¬¿ÉÒÔÔÚÆä×ÓÊ÷ÖÐÕÒÒ»¸öÌæ´ú½áµã£¬±ÈÈç£º
-				// ÕÒÆä×ó×ÓÊ÷ÖÐµÄ×î´ó½Úµã£¬¼´×ó×ÓÊ÷ÖÐ×îÓÒ²àµÄ½Úµã£¬»òÕßÔÚÆäÓÒ×ÓÊ÷ÖÐ×îÐ¡µÄ½Úµã£¬¼´ÓÒ×Ó
-				//Ê÷ÖÐ×îÐ¡µÄ½Úµã
-				// Ìæ´ú½ÚµãÕÒµ½ºó£¬½«Ìæ´ú½ÚµãÖÐµÄÖµ½»¸ø´ýÉ¾³ý½Úµã£¬×ª»»³ÉÉ¾³ýÌæ´ú½Úµã
+				// å½“å‰èŠ‚ç‚¹å·¦å³å­©å­éƒ½å­˜åœ¨ï¼Œç›´æŽ¥åˆ é™¤ä¸å¥½åˆ é™¤ï¼Œå¯ä»¥åœ¨å…¶å­æ ‘ä¸­æ‰¾ä¸€ä¸ªæ›¿ä»£ç»“ç‚¹ï¼Œæ¯”å¦‚ï¼š
+				// æ‰¾å…¶å·¦å­æ ‘ä¸­çš„æœ€å¤§èŠ‚ç‚¹ï¼Œå³å·¦å­æ ‘ä¸­æœ€å³ä¾§çš„èŠ‚ç‚¹ï¼Œæˆ–è€…åœ¨å…¶å³å­æ ‘ä¸­æœ€å°çš„èŠ‚ç‚¹ï¼Œå³å³å­
+				//æ ‘ä¸­æœ€å°çš„èŠ‚ç‚¹
+				// æ›¿ä»£èŠ‚ç‚¹æ‰¾åˆ°åŽï¼Œå°†æ›¿ä»£èŠ‚ç‚¹ä¸­çš„å€¼äº¤ç»™å¾…åˆ é™¤èŠ‚ç‚¹ï¼Œè½¬æ¢æˆåˆ é™¤æ›¿ä»£èŠ‚ç‚¹
 		}
 		return true;
 	}
